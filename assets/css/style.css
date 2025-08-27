@@ -1,0 +1,200 @@
+:root{
+  --accent:#17abb3;   
+  --txt:#333;         
+  --line:#e3e3e3;     
+  --bg:#f5f5f5;       
+  --paper:#ffffff;    
+  --aside:#e3e3e3;    /* colonne gauche grise */
+  --page-max:1160px;
+  --left-gutter:16px; /* bande blanche fixe à gauche */
+  --inner-gap:28px;   /* marge BLANCHE entre aside et contenu */
+  --bar-w:8px;        /* trait vertical au hover */
+}
+
+/*  Base  */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Lato",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--txt);
+  line-height:1.55;
+  background:linear-gradient(to right,#fff 0 var(--left-gutter),var(--bg) var(--left-gutter) 100%);
+  min-height:100vh; display:flex; flex-direction:column;
+}
+
+/*  Bannière (même largeur que la carte)  */
+.full-banner{background:transparent;padding:16px 0 0 var(--left-gutter)}
+.header-inner{
+  max-width:var(--page-max); margin:0 auto; position:relative; padding:28px 22px;
+  background:var(--accent); color:#fff;
+  border-radius:10px; border-bottom-left-radius:0; border-bottom-right-radius:0; /* colle à la carte */
+  box-shadow:0 12px 28px rgba(0,0,0,.08);
+}
+.photo{
+  position:absolute; left:22px; top:18px;
+  width:110px;height:110px;border-radius:50%;
+  border:6px solid #fff;overflow:hidden;background:#fff;
+  box-shadow:0 8px 22px rgba(0,0,0,.12);
+}
+/* Photo zoomable */
+.photo a{display:block; width:100%; height:100%; border-radius:50%; cursor:zoom-in; outline:none;}
+.photo img{display:block; width:100%; height:100%; object-fit:cover; transition:transform .18s ease, box-shadow .18s ease;}
+.photo a:hover img,.photo a:focus img{transform:scale(1.04); box-shadow:0 10px 26px rgba(0,0,0,.18);}
+.photo a:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.9), 0 0 0 6px rgba(23,171,179,.8); border-radius:50%;}
+
+.infos{text-align:center}
+.infos h1{margin:0 0 4px;font-size:36px;font-weight:900;letter-spacing:.2px}
+.infos h2{margin:0 0 10px;font-size:15px;font-weight:700;opacity:.95}
+
+/* Contact en 2 colonnes */
+.contact{
+  display:grid; grid-template-columns:repeat(2,max-content);
+  gap:6px 28px; justify-content:center;
+  list-style:none; padding:0; margin:6px auto 0; font-weight:700;
+}
+.contact li{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.contact svg{width:18px;height:18px;fill:#fff;opacity:.95}
+.contact a{color:inherit;text-decoration:none}
+
+/* Liens cliquables sur tout l'item */
+.contact .contact-link{
+  display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:inherit;
+}
+.contact .contact-link:hover{ text-decoration:underline; }
+
+/* Accessibilité (pour lecteurs d’écran) */
+.sr-only{
+  position:absolute!important;
+  width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* Bloc principal  */
+.page{flex:1 0 auto;margin:0;padding:0 0 0 var(--left-gutter);display:flex}
+.page-inner{
+  max-width:var(--page-max); margin:0 auto; width:100%;
+  background:var(--paper);
+  border:1px solid var(--line); border-top:none; border-radius:0;
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+  display:grid; grid-template-columns:300px 1fr;
+  column-gap:var(--inner-gap);
+  overflow:hidden;
+}
+
+/*  Sidebar (grise)  */
+.sidebar{ background:var(--aside); padding:22px 22px 28px; }
+.sidebar h3{
+  color:#0f6f6e;font-size:15px;margin:8px 0 10px;
+  padding-bottom:8px;border-bottom:1px solid var(--line);
+}
+.sidebar ul{list-style:none;padding:0;margin:0 0 14px}
+.sidebar li{padding:7px 0;font-size:14px}
+.stars{color:var(--accent);font-weight:900;margin-left:8px}
+
+/* Langues */
+.languages li{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;border-bottom:1px dashed var(--line);
+}
+.languages li:last-child{border-bottom:none}
+.languages em{font-style:normal;color:#555}
+
+/* Puces */
+.goodat li,.hobes li{position:relative;padding-left:14px}
+.goodat li::before,.hobes li::before{
+  content:"";position:absolute;left:0;top:.92em;width:6px;height:6px;
+  border-radius:2px;background:var(--accent);transform:translateY(-50%);
+}
+
+/*  Contenu principal */
+.content{padding:26px 28px 32px}
+.title{
+  color:var(--accent);font-size:16px;margin:6px 0 10px;
+  border-bottom:2px solid var(--line);padding-bottom:8px;font-weight:900;
+}
+.lead{margin:8px 0 16px;color:#444}
+
+/* --- Listes (Formations / Stages / Expériences) — barre à gauche + fond gris au survol --- */
+.formations{list-style:none;padding:0;margin:0 0 14px}
+.formations li{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 160px;
+  gap:18px;
+  padding:10px 12px 10px calc(12px + var(--bar-w)); /* réserve pour la barre */
+  border-bottom:1px dashed var(--line);
+  background:transparent;
+  transition:background-color .25s ease;
+}
+.formations .label{font-weight:900;line-height:1.35}
+.formations .year{color:var(--accent);font-weight:900;text-align:right;align-self:center}
+.formations li::before{
+  content:"";
+  position:absolute;
+  left:12px; top:10px; bottom:10px;
+  width:var(--bar-w);
+  background:var(--accent);
+  border-radius:2px;
+  transform:scaleX(0);
+  transform-origin:left;
+  opacity:0;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.formations li:hover,
+.formations li:focus-within{ background:var(--bg); }
+.formations li:hover::before,
+.formations li:focus-within::before{ transform:scaleX(1); opacity:1; }
+
+/* Footer (même largeur que la bannière)  */
+.foot{background:transparent;padding:0 0 16px var(--left-gutter)}
+.foot__inner{
+  max-width:var(--page-max); margin:0 auto; padding:16px 0;
+  background:var(--accent); color:#fff; text-align:center;
+  border-radius:10px; border-top-left-radius:0; border-top-right-radius:0;
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+
+/* Icônes sociaux (LinkedIn, GitHub, Instagram) */
+.socials{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+.socials a{
+  width:36px;height:36px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid rgba(255,255,255,.95);
+  color:#fff;text-decoration:none;
+}
+.socials svg{width:18px;height:18px;fill:currentColor}
+
+/*  Responsive
+@media (max-width:980px){
+  .page-inner{grid-template-columns:1fr}
+  .formations li{grid-template-columns:1fr}
+  .formations .year{text-align:left} 
+} 
+/*
+@media (max-width:680px){
+  .photo{left:50%;transform:translateX(-50%)}
+  .contact{grid-template-columns:1fr;justify-content:center}
+}   */
+
+/*  Effet demandé : seule l'icône baisse légèrement d'opacité au survol */
+.socials a svg{
+  opacity:1;
+  transition:opacity .15s ease;
+}
+.socials a:hover svg,
+.socials a:focus-visible svg{
+  opacity:.8; /* léger mais visible */
+}
+@media (hover:none){
+  .socials a:active svg{ opacity:.8; } /* petit effet au tap mobile */
+}
+
+
+
+.contact svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
